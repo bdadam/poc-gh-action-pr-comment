@@ -29,10 +29,10 @@ jobs:
           git config user.email $GITHUB_ACTOR@users.noreply.github.com
           git fetch origin storybook-static
           git worktree add $TEMP_DIR storybook-static
-          cd $TEMP_DIR
-          ls -la
           PR_DIR=PR-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-          mkdir -p $PR_DIR
+          mkdir -p $TEMP_DIR/$PR_DIR
+          cd $TEMP_DIR/$PR_DIR
+          ls -la
           printf 'Hello $GITHUB_REPOSITORY - PR #$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")' > $TEMP_DIR/$PR_DIR/index.html
           git commit -am "Release ${{ env.GITHUB_SHA }}" || true
           git push
