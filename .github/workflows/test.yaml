@@ -1,0 +1,17 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: 1
+
+jobs:
+  build:
+    runs-on: Ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "Start"
+      - run: sleep 120
+      - run: echo "Done"
