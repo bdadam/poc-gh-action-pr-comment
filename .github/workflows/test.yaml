@@ -19,7 +19,7 @@ jobs:
             git rm --cached -r .
             git reset --hard
             git add -A
-            git commit -am "Init"
+            git commit -am "Init" --allow-empty
             git push --set-upstream origin storybook-static
           fi
       - uses: actions/checkout@v2
