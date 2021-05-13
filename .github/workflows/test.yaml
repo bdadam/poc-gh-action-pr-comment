@@ -40,4 +40,5 @@ jobs:
           git push
       - run: |
           PR_DIR=PR-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-          curl -X POST -H "Accept: application/vnd.github.v3+json" -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")/comments -d '{"body":"Look at it [$PR_DIR](https://bdadam.github.io/poc-gh-action-pr-comment/$PR_DIR/)"}'
+          COMMENT_BODY="Look at it [$PR_DIR](https://bdadam.github.io/poc-gh-action-pr-comment/$PR_DIR/)"
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")/comments -d '{"body":"${COMMENT_BODY}"}'
