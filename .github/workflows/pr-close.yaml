@@ -4,8 +4,8 @@ on:
   pull_request:
     types: [ closed ]
 
-obs:
-  build:
+jobs:
+  merge:
     runs-on: Ubuntu-20.04
     steps:
       - uses: actions/checkout@v1
