@@ -10,9 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+          set +x
           echo $GITHUB_ACTOR
           git config user.name $GITHUB_ACTOR
           git config user.email $GITHUB_ACTOR@users.noreply.github.com
+          git branch
           # git fetch origin storybook-static || true
           TEMP_DIR=$(mktemp -d)
           CURRENT_BRANCH=$(git branch)
