@@ -17,7 +17,8 @@ jobs:
             git config user.email $GITHUB_ACTOR@users.noreply.github.com
             git checkout --orphan storybook-static
             git rm --cached -r .
-            git add .
+            git reset --hard
+            git add -A
             git commit -am "Init"
             git push --set-upstream origin storybook-static
           fi
