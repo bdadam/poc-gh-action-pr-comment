@@ -1,3 +1,3 @@
 # poc-gh-action-pr-comment
 
-hello world
+Hello world!
