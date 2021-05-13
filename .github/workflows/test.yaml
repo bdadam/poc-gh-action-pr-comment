@@ -22,7 +22,7 @@ jobs:
             git rm --cached -r .
             git add -A .
             git commit -am "Init"
-            git push
+            git push --set-upstream origin storybook-static
             git checkout $CURRENT_BRANCH
           fi
 
