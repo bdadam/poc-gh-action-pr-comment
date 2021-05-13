@@ -10,4 +10,25 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          curl -X POST -H "Accept: application/vnd.github.v3+json" -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")/comments -d '{"body":"Hello"}'
+          git config user.name $GITHUB_ACTOR
+          git config user.email $GITHUB_ACTOR@users.noreply.github.com
+          # git fetch --all
+          
+          if ! $(git fetch origin storybook-static) ; then echo "Create storybook-static branch"
+          
+          
+          
+          # git fetch origin storybook-static || echo "Fetch error"
+          
+          TEMP_DIR=$(mktemp -d)
+          
+          git worktree add $TEMP_DIR storybook-static
+          
+          printf "Hello $GITHUB_REPOSITORY - PR #$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")" > $TEMP_DIR/index.html
+          
+          cd $TEMP_DIR
+          # git add -A
+          # git commit -am "Release ${{ env.GITHUB_SHA }}" || true
+          # git push
+          
+          # curl -X POST -H "Accept: application/vnd.github.v3+json" -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")/comments -d '{"body":"Hello"}'
