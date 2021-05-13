@@ -1,0 +1,12 @@
+name: Close Pull Request
+
+on:
+  pull_request:
+    types: [ closed ]
+
+obs:
+  build:
+    runs-on: Ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "Merged"

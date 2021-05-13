@@ -1,17 +1,13 @@
 name: Deploy
 
-on:
-  push:
-    branches:
-      - main
+on: [pull_request]
 
-concurrency: 1
+concurrency: '1'
 
 jobs:
   build:
     runs-on: Ubuntu-20.04
     steps:
       - uses: actions/checkout@v1
-      - run: echo "Start"
-      - run: sleep 120
-      - run: echo "Done"
+      - run: |
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")/comments -d '{"body":"Hello"}'
