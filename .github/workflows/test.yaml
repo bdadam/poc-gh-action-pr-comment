@@ -35,6 +35,7 @@ jobs:
           cd $TEMP_DIR/$PR_DIR
           ls -la
           printf 'Hello $GITHUB_REPOSITORY - PR #$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")' > $TEMP_DIR/$PR_DIR/index.html
+          git add .
           git commit -am "Release ${{ env.GITHUB_SHA }}" || true
           git push
           # if ! git fetch origin storybook-static; then
