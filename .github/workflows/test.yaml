@@ -13,4 +13,4 @@ jobs:
           set +x
           git config user.name ${{env.GITHUB_ACTOR}}
           git config user.email $GITHUB_ACTOR@users.noreply.github.com
-          if ! $(git fetch origin storybook-static) ; then echo "Create storybook-static branch" fi
+          if ! git fetch origin storybook-static ; then echo "Create storybook-static branch" fi
