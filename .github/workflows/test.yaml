@@ -33,7 +33,7 @@ jobs:
           mkdir -p $TEMP_DIR/$PR_DIR
           cd $TEMP_DIR/$PR_DIR
           ls -la
-          printf "Hello $GITHUB_REPOSITORY - $PR_DIR" > $TEMP_DIR/$PR_DIR/index.html
+          echo "Hello $GITHUB_REPOSITORY - $PR_DIR" > $TEMP_DIR/$PR_DIR/index.html
           git add .
           git commit -am "Release ${{ env.GITHUB_SHA }}" || true
           git push
