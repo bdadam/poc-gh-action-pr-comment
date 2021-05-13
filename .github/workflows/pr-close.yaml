@@ -8,5 +8,18 @@ jobs:
   merge:
     runs-on: Ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
-      - run: echo "Merged"
+      - uses: actions/checkout@v2
+      - run: |
+          set +x
+          echo $GITHUB_ACTOR
+          git config user.name $GITHUB_ACTOR
+          git config user.email $GITHUB_ACTOR@users.noreply.github.com
+          git fetch origin storybook-static
+          TEMP_DIR=$(mktemp -d)
+          git worktree add $TEMP_DIR storybook-static
+          PR_DIR=PR-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          rm -rf $TEMP_DIR/$PR_DIR
+          cd $TEMP_DIR
+          git add .
+          git commit -am "Removed PR" || true
+          git push
