@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          curl -H "Accept: application/vnd.github.v3+json" -H "temporary-github-token: ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")/comments
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "temporary-github-token: ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")/comments -d '{"body":"Hello"}'
