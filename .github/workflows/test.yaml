@@ -20,6 +20,7 @@ jobs:
             echo "Create storybook-static branch"
             git checkout --orphan storybook-static
             git rm --cached -r .
+            git add -A .
             git commit -am "Init"
             git push
             git checkout $CURRENT_BRANCH
