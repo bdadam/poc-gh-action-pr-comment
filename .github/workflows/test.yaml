@@ -13,20 +13,16 @@ jobs:
           echo $GITHUB_ACTOR
           git config user.name $GITHUB_ACTOR
           git config user.email $GITHUB_ACTOR@users.noreply.github.com
-          git fetch origin storybook-static || true
+          # git fetch origin storybook-static || true
           TEMP_DIR=$(mktemp -d)
-          git worktree add --detach $TEMP_DIR storybook-static
-          printf "Hello $GITHUB_REPOSITORY - PR #$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")" > $TEMP_DIR/index.html
-          cd $TEMP_DIR
-          # git add -A
-          # git commit -am "Release ${{ env.GITHUB_SHA }}" || true
-          # git push
-          # if ! git fetch origin storybook-static; then
-          #   echo "Create storybook-static branch"
-          #   git checkout --orphan storybook-static
-          #   git rm --cached -r .
-          #   git add -A .
-          #   git push
-          #   git checkout
-          # fi
-          # echo "Done"
+          CURRENT_BRANCH=$(git branch)
+          if ! git fetch origin storybook-static; then
+            echo "Create storybook-static branch"
+            git checkout --orphan storybook-static
+            git rm --cached -r .
+            git commit -am "Init"
+            git push
+            git checkout $CURRENT_BRANCH
+          fi
+
+          echo "Hello done"
