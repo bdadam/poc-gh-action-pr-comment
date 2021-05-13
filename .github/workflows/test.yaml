@@ -11,13 +11,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           set +x
-          echo $GITHUB_ACTOR
           git config user.name $GITHUB_ACTOR
           git config user.email $GITHUB_ACTOR@users.noreply.github.com
-          git branch
-          # git fetch origin storybook-static || true
-          TEMP_DIR=$(mktemp -d)
-          CURRENT_BRANCH=$(git branch --show-current)
           if ! git fetch origin storybook-static; then
             echo "Create storybook-static branch"
             git checkout --orphan storybook-static
@@ -25,7 +20,27 @@ jobs:
             git add -A .
             git commit -am "Init"
             git push --set-upstream origin storybook-static
-            git checkout $CURRENT_BRANCH
           fi
+      - uses: actions/checkout@v2
+      - run: |
+          set +x
+          echo $GITHUB_ACTOR
+          git config user.name $GITHUB_ACTOR
+          git config user.email $GITHUB_ACTOR@users.noreply.github.com
 
-          echo "Hello done"
+          ls -la
+          git worktree add --detach $TEMP_DIR storybook-static
+          cd $TEMP_DIR
+          mkdir -p 
+          printf "Hello $GITHUB_REPOSITORY - PR #$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")" > $TEMP_DIR/index.html
+          git commit -am "Release ${{ env.GITHUB_SHA }}" || true
+          git push
+          # if ! git fetch origin storybook-static; then
+          #   echo "Create storybook-static branch"
+          #   git checkout --orphan storybook-static
+          #   git rm --cached -r .
+          #   git add -A .
+          #   git push
+          #   git checkout
+          # fi
+          echo "Done"
