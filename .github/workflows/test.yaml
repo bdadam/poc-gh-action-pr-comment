@@ -8,9 +8,10 @@ jobs:
   build:
     runs-on: Ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - run: |
-          git config user.name ${{env.GITHUB_ACTOR}}
+          echo $GITHUB_ACTOR
+          git config user.name $GITHUB_ACTOR
           git config user.email $GITHUB_ACTOR@users.noreply.github.com
           if (( $(git fetch origin storybook-static) == 1 )); then
             echo "Create storybook-static branch"
