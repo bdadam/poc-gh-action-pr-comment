@@ -17,7 +17,7 @@ jobs:
           git branch
           # git fetch origin storybook-static || true
           TEMP_DIR=$(mktemp -d)
-          CURRENT_BRANCH=$(git branch)
+          CURRENT_BRANCH=$(git branch --show-current)
           if ! git fetch origin storybook-static; then
             echo "Create storybook-static branch"
             git checkout --orphan storybook-static
