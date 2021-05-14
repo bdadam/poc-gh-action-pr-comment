@@ -3,6 +3,9 @@ name: Deploy
 on:
   pull_request:
     types: [ opened, reopened, edited, synchronize ]
+    branches:
+      - main
+      - master
 
 concurrency: '1'
 
